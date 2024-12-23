@@ -1,63 +1,49 @@
 // 1
 const bankAccount = {
-    ownerName: "Mark",
-    accountNumber: 1967,
-    balance: 1456,
+    ownerName: "",
+    accountNumber: "",
+    balance: 0,
 
     deposit() {
-        const depositPrompt = prompt("Чи хочете закинути гроші на ваш рахунок? (так/ні)");
-
-        if (depositPrompt && depositPrompt.toLowerCase() === "так") {
-            const howMuchPrompt = parseFloat(prompt("Скільки хочете закинути грошей на рахунок?"));
-
-            if (!isNaN(howMuchPrompt) && howMuchPrompt > 0) {
-                this.balance += howMuchPrompt;
-                alert(`Ваш рахунок поповнено. Новий баланс: ${this.balance} грн.`);
-                return this.balance;
+        if (confirm("Чи хочете ви поповнити рахунок?")) {
+            const amount = parseFloat(prompt("Введіть суму для поповнення:"));
+            if (!isNaN(amount) && amount > 0) {
+                this.balance += amount;
+                console.log(`Рахунок поповнено на ${amount} грн. Поточний баланс: ${this.balance} грн.`);
             } else {
-                alert("Будь ласка, введіть коректну суму.");
+                console.log("Неправильна сума для поповнення.");
             }
         } else {
-            alert("Операція скасована.");
+            console.log("Операція поповнення скасована.");
         }
     },
 
-
-
     withdraw() {
-        const withdrawPrompt = prompt("Чи хочете зняти гроші з вашого рахунку? (так/ні)");
-
-        if (withdrawPrompt && withdrawPrompt.toLowerCase() === "так") {
-            const howMuchPrompt = parseFloat(prompt("Скільки хочете зняти грошей з рахунку?"));
-
-            if (!isNaN(howMuchPrompt) && howMuchPrompt > 0) {
-                if (howMuchPrompt <= this.balance) {
-                    this.balance -= howMuchPrompt;
-                    alert(`Ви зняли ${howMuchPrompt} грн. Залишок: ${this.balance} грн.`);
-                    return this.balance;
+        if (confirm("Чи хочете ви зняти кошти з рахунку?")) {
+            const amount = parseFloat(prompt("Введіть суму для зняття:"));
+            if (!isNaN(amount) && amount > 0) {
+                if (amount > this.balance) {
+                    console.log("Недостатньо коштів на рахунку.");
                 } else {
-                    alert("Недостатньо коштів на рахунку.");
+                    this.balance -= amount;
+                    console.log(`Знято ${amount} грн. Поточний баланс: ${this.balance} грн.`);
                 }
             } else {
-                alert("Будь ласка, введіть коректну суму.");
+                console.log("Неправильна сума для зняття.");
             }
         } else {
-            alert("Операція скасована.");
+            console.log("Операція зняття скасована.");
         }
     },
 };
 
-console.log("Поточний баланс:", bankAccount.balance);
-
 bankAccount.deposit();
-console.log("Баланс після поповнення:", bankAccount.balance);
-
 bankAccount.withdraw();
-console.log("Баланс після зняття:", bankAccount.balance);
-// 1
 
-// 2
-const weather = {
+  // 1
+
+  // 2
+  const weather = {
     temperature: 0,
     humidity: 0,
     windSpeed: 0,
@@ -67,91 +53,61 @@ const weather = {
     }
 };
 
-const temperatureInput = document.createElement("input");
-temperatureInput.type = "number";
-temperatureInput.id = "temperatureInput";
-temperatureInput.placeholder = "Введіть температуру (°C)";
-document.body.appendChild(temperatureInput);
-
-const checkTemperatureButton = document.createElement("button");
-checkTemperatureButton.id = "checkTemperatureButton";
-checkTemperatureButton.textContent = "Перевірити температуру";
-document.body.appendChild(checkTemperatureButton);
-
-const resultMessage = document.createElement("p");
-resultMessage.id = "resultMessage";
-document.body.appendChild(resultMessage);
-
-checkTemperatureButton.addEventListener("click", () => {
-    const inputValue = parseFloat(temperatureInput.value);
-
-    if (isNaN(inputValue)) {
-        resultMessage.textContent = "Будь ласка, введіть коректну температуру.";
-        return;
-    }
-
-    weather.temperature = inputValue;
-
-    if (weather.isBelowZero()) {
-        resultMessage.textContent = "Температура нижче 0 градусів Цельсія.";
-    } else {
-        resultMessage.textContent = "Температура вище або дорівнює 0 градусів Цельсія.";
-    }
-});
-
-// 2
-
-// 3
-const user = {
-    name: "John Doe",
-    email: "john.doe@example.com",
-    password: "securePassword123",
-
-    login(inputEmail, inputPassword) {
-        if (this.email === inputEmail && this.password === inputPassword) {
-            return "Login successful!";
-        } else {
-            return "Invalid email or password.";
-        }
-    }
-};
-
-const result = user.login("john.doe@example.com", "securePassword123");
-console.log(result);
-
-// 3
-
-// 4
-const movie = {
-    title: "Inception",
-    director: "Christopher Nolan",
-    year: 2010,
-    rating: 8.8,
-
-    isHighRated() {
-        return this.rating > 8;
-    },
-};
-
-const body = document.body;
-
-const titleElement = document.createElement("p");
-titleElement.textContent = `Title: ${movie.title}`;
-if (movie.isHighRated()) {
-    titleElement.style.color = "green";
+weather.temperature = parseFloat(prompt("Введіть температуру в градусах Цельсія:"));
+if (isNaN(weather.temperature)) {
+    console.log("Введено некоректне значення температури.");
+} else if (weather.isBelowZero()) {
+    console.log("Температура нижче 0 градусів Цельсія");
+} else {
+    console.log("Температура вище або рівна 0 градусів Цельсія");
 }
-body.appendChild(titleElement);
 
-const directorElement = document.createElement("p");
-directorElement.textContent = `Director: ${movie.director}`;
-body.appendChild(directorElement);
+    // 2
 
-const yearElement = document.createElement("p");
-yearElement.textContent = `Year: ${movie.year}`;
-body.appendChild(yearElement);
+    // 3
+    const user = {
+        name: "",
+        email: "",
+        password: "",
+    
+        login() {
+            const inputEmail = prompt("Введіть ваш email:");
+            const inputPassword = prompt("Введіть ваш пароль:");
+    
+            if (this.email === inputEmail && this.password === inputPassword) {
+                console.log("Успішний вхід!");
+            } else {
+                console.log("Невірний email або пароль.");
+            }
+        }
+    };
+    
+    user.email = "test@gmail.com";
+    user.password = "123456";
+    user.login();
+    // 3
 
-const ratingElement = document.createElement("p");
-ratingElement.textContent = `Rating: ${movie.rating}`;
-body.appendChild(ratingElement);
-
-// 4
+    // 4
+  const movie = {
+    title: "",
+    director: "",
+    year: 0,
+    rating: 0,
+  
+    isHighRated() {
+      return this.rating > 8;
+    }
+  };
+  
+  movie.title = "Inception";
+  movie.director = "Christopher Nolan";
+  movie.year = 2010;
+  movie.rating = 8.8;
+  
+  console.log(`Title: ${movie.title}, Director: ${movie.director}, Year: ${movie.year}, Rating: ${movie.rating}`);
+  if (movie.isHighRated()) {
+    console.log("Фільм має високий рейтинг!");
+  } else {
+    console.log("Рейтинг фільму низький або середній.");
+  }
+    // 4
